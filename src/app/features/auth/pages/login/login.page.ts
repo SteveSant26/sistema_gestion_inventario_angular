@@ -11,7 +11,10 @@ import NotificationType from '@shared/types/notification.type';
   selector: 'app-login-page',
   imports: [AuthForm],
   template: `
-  <app-auth-form [formGroup]="loginForm" [inputFields]="loginFormInputFields" btnSubmitLabel="Login" (formSubmit)="login()"></app-auth-form>
+  <app-auth-form [formGroup]="loginForm" 
+  [inputFields]="loginFormInputFields"
+   btnSubmitLabel="Login" 
+   (formSubmit)="login()"></app-auth-form>
   `
 
 })
@@ -32,7 +35,7 @@ export class LoginPage {
   }
   private initLoginForm() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
 
@@ -57,6 +60,7 @@ export class LoginPage {
   }
 
   login() {
+    console.log('login');
     if (!this.loginForm.valid) {
       this.errorMessage = 'Please fill in the form';
       this.notificationsService.showAlert(

@@ -10,6 +10,7 @@ export const isLoggedGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const isAuthenticated = userService.isAuthenticated();
 
+  console.log('Is authenticated: ',isAuthenticated());
   if (isAuthenticated()) {
     router.navigate([dashboardRoutesConfig.base.url]);
     return false;

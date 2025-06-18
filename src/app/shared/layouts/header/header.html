@@ -6,12 +6,10 @@
         <a [routerLink]="dashboardRoutesConfig.base.url">
             <img src="favicon.png" alt="Logo" class="w-[30px] max-h-[35px] block cursor-pointer" />
         </a>
-        <a [routerLink]="dashboardRoutesConfig.base.url" class="bg-secondary-btn text-white text-base px-5 h-full flex items-center">Home</a>
+        <a [routerLink]="dashboardRoutesConfig.base.url"
+            class="bg-secondary-btn-own text-white text-base px-5 h-full flex items-center">Home</a>
     </div>
 
     <!-- Lado derecho: acciones de autenticación -->
-    <div id="auth-actions" class="flex items-center gap-4 text-xl ">
-        <button id="logout" class="hidden bg-transparent border-none text-white p-5">Log out</button> 
-        <a [routerLink]="authRoutesConfig.login.url" class="text-white px-5 py-5 hover:underline">Log in</a>
-    </div>
+    <app-auth-button></app-auth-button>
 </nav>

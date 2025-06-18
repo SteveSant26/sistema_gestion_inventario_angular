@@ -1,0 +1,9 @@
+    <div id="auth-actions" class="flex items-center gap-4 text-xl ">
+        @if (isLogged()){
+            <button class="bg-transparent border-none text-white p-5" (click)="logOut()">Log out</button>
+        }
+        @else {
+            HOla
+        <a [routerLink]="authRoutesConfig.login.url" class="text-white px-5 py-5 hover:underline">Log in</a>
+        }
+    </div>

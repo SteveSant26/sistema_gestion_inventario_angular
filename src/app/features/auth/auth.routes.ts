@@ -8,7 +8,5 @@ export const authRoutes: Routes = [
     path: authRoutesConfig.login.path,
     component: LoginPage,
     canActivate: [isLoggedGuard],
-
-
   },
 ];

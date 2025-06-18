@@ -19,7 +19,6 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@tailwindcss/postcss": "^4.1.10",
-    "daisyui": "^5.0.43",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
