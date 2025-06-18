@@ -1,0 +1,49 @@
+<div class="w-full max-w-[500px] mx-auto my-[5vh] p-8 bg-white shadow-md rounded-xl font-[Segoe_UI] bg-third-color">
+    <!-- Encabezado con logo -->
+    <div class="text-center font-bold w-full p-2">
+        <img src="logo_uleam_full_color.png" alt="" class="w-[80%] mx-auto">
+    </div>
+
+    <!-- Formulario de login -->
+    <form method="post">
+        <!-- Mensaje de error oculto por defecto -->
+        <p class="hidden bg-red-background-color text-[#691911] rounded-lg m-4 p-4 text-[0.95rem] break-words max-w-full sm:text-[0.85rem] sm:m-3 sm:p-3"
+            id="error-message">
+            Mensaje de error aquí
+        </p>
+
+        <div class="p-2 w-full">
+
+            @for (field of inputFields() ; track $index) {
+
+            <div class="mb-5 text-left">
+                <input [formControlName]="field.name"
+                    [type]="field.type === 'password' && showPassword ? 'text' : field.type"
+                    [placeholder]="field.placeholder" [autocomplete]="field.autocomplete" [required]="field.required"
+                    class="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-primary-btn-color placeholder-gray-color" />
+            </div>
+            @if (field.type === 'password') {
+
+            <label class="swap absolute right-3 top-3">
+                <input type="checkbox" [value]="showPassword" (change)="togglePasswordVisibility()" />
+                <mat-icon class="swap-on">visibility</mat-icon>
+                <mat-icon class="swap-off">visibility_off</mat-icon>
+            </label>
+
+            }
+            <small class="text-secondary" style="font-size: 14px;">
+                {{ getErrorMessage(field) }}
+            </small>
+            }
+        </div>
+
+        <!-- Botón -->
+        <div class="text-left">
+            <button type="submit" [disabled]="formGroup().invalid"
+                class="bg-primary-btn text-white rounded-md px-5 py-2 text-sm hover:bg-secondary-btn-color transition-all duration-300">
+                {{ btnSubmitLabel() }}
+            </button>
+        </div>
+    </form>
+
+</div>

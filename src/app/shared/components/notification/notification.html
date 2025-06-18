@@ -1,0 +1,18 @@
+@if (showAlert()){
+
+<div class="toast">
+  <div
+    class="alert flex items-center justify-between p-2"
+    [ngClass]="notificationType"
+  >
+    <span>{{ message() }}</span>
+    <button
+      class="close-btn flex items-center justify-center hover:scale-110 cursor-pointer"
+      aria-label="Close"
+      onclick="this.parentElement.parentElement.style.display='none'"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+}
