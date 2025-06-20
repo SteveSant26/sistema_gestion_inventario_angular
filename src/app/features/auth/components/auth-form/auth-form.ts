@@ -30,10 +30,10 @@ export class AuthForm {
     return this.showPassword ? 'visibility' : 'visibility_off';
   }
   OnSubmit() {
-    console.log('submit');
     if (this.formGroup().valid) {
       this.formSubmit.emit();
     }
+
   }
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

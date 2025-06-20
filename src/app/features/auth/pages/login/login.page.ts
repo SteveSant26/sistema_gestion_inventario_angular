@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AuthForm } from '../../components/auth-form/auth-form';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import IInputField from '@shared/types/input-field.type';
@@ -14,14 +14,15 @@ import NotificationType from '@shared/types/notification.type';
   <app-auth-form [formGroup]="loginForm" 
   [inputFields]="loginFormInputFields"
    btnSubmitLabel="Login" 
-   (formSubmit)="login()"></app-auth-form>
-  `
+   (formSubmit)="login()" [error_message]="errorMessage()"></app-auth-form>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
 export class LoginPage {
   loginForm!: FormGroup;
   loginFormInputFields!: IInputField[];
-  errorMessage = '';
+  errorMessage = signal('');
   readonly authRoutesConfig = authRoutesConfig;
 
 
@@ -60,28 +61,30 @@ export class LoginPage {
   }
 
   login() {
-    console.log('login');
+
     if (!this.loginForm.valid) {
-      this.errorMessage = 'Please fill in the form';
+      this.errorMessage.set('Please fill in the form');
       this.notificationsService.showAlert(
-        this.errorMessage,
+        this.errorMessage(),
         NotificationType.AlertError
       );
       return;
     }
-    const { identifier, password } = this.loginForm.value;
-    this.authSevice.login(identifier, password).subscribe({
+    const { email, password } = this.loginForm.value;
+
+    this.authSevice.login(email, password).subscribe({
       next: (data) => {
-        this.errorMessage = '';
+        this.errorMessage.set('');
         this.notificationsService.showAlert(
           'Login succesful',
           NotificationType.AlertSuccess
         );
       },
       error: (error) => {
-        this.errorMessage = error.message || 'Login failed';
+        console.log(error);
+        this.errorMessage.set(error.message || 'Login failed');
         this.notificationsService.showAlert(
-          this.errorMessage,
+          this.errorMessage(),
           NotificationType.AlertError
         );
       },

@@ -1,14 +1,14 @@
 <div class="w-full max-w-[500px] mx-auto my-[5vh] p-8 bg-white shadow-md rounded-xl font-[Segoe_UI] bg-third-color">
     <!-- Encabezado con logo -->
     <div class="text-center font-bold w-full p-2">
-        <img src="logo_uleam_full_color.png" alt="Logo Uleam" class="w-[80%] mx-auto">
+        <img src="img/logo_uleam_full_color.png" alt="Logo Uleam" class="w-[80%] mx-auto">
     </div>
 
     <!-- Formulario de login -->
     <form method="post" [formGroup]="formGroup()" class="p-2" (ngSubmit)="OnSubmit()">
         <!-- Mensaje de error -->
         @if (error_message()) {
-        <p class="bg-red-background-color text-red-background-own rounded-lg m-4 p-4 text-[0.95rem] break-words max-w-full sm:text-[0.85rem] sm:m-3 sm:p-3"
+        <p class="bg-red-background-own text-black rounded-lg m-4 p-4 text-[0.95rem] break-words max-w-full sm:text-[0.85rem] sm:m-3 sm:p-3"
             id="error-message">
             {{ error_message() }}
         </p>
@@ -36,10 +36,10 @@
             }
         </div>
 
-        
+
         <!-- Botón de envío -->
         <div class="text-left">
-            <app-button [disabled]="formGroup().invalid" (onclickEvent)="OnSubmit()" [btnLabel]="btnSubmitLabel()"></app-button>
+            <app-button (onclickEvent)="OnSubmit()" [btnLabel]="btnSubmitLabel()"></app-button>
         </div>
     </form>
 </div>

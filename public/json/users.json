@@ -8,6 +8,11 @@
             "email": "auditor@uleam.edu.ec",
             "password": "123456",
             "role": "auditor"
+    },
+    {
+            "email": "bryanmenoscal2005@gmail.com",
+            "password": "admiN123",
+            "role": "admin"
     }
 
 

@@ -3,6 +3,7 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { Data } from '@shared/services/data';
 import User from '../models/user';
 import RolesEnum from '../config/roles-enum';
+import { usersAdapter } from '../adapters/users.adapter';
 
 const LOCAL_STORAGE_USER_KEY = 'user';
 
@@ -24,13 +25,11 @@ export class Auth {
    * Inicia sesión validando las credenciales con los usuarios del JSON local.
    */
   login(email: string, password: string): Observable<User> {
-    const usersJsonPath = 'assets/users.json';
+    const usersJsonPath = 'json/users.json';
 
-    return this.dataService.getLocalJson(usersJsonPath).pipe(
+    return this.dataService.getLocalJson<User[]>(usersJsonPath, usersAdapter).pipe(
       map((users: User[]) => {
-        const user = users.find(
-          (u) => u.email === email && u.password === password
-        );
+        const user = users.find((u) => u.email === email && u.password === password);
 
         if (!user) {
           throw new Error('Correo o contraseña incorrectos');
