@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { isLoggedGuard } from '../auth/guards';
-import authRoutesConfig from './config/routes-config';
+import {authRoutesConfig} from './config';
 import { LoginPage } from './pages/login/login.page';
 
 export const authRoutes: Routes = [

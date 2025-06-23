@@ -1,19 +1,27 @@
 [
-    {
-            "email": "admin@uleam.edu.ec",
-            "password": "123456",
-            "role": "admin"
-    }, 
-    {
-            "email": "auditor@uleam.edu.ec",
-            "password": "123456",
-            "role": "auditor"
-    },
-    {
-            "email": "bryanmenoscal2005@gmail.com",
-            "password": "admiN123",
-            "role": "admin"
-    }
-
-
+        {
+                "email": "admin@uleam.edu.ec",
+                "password": "123456",
+                "role": "admin"
+        },
+        {
+                "email": "worker1@uleam.edu.ec",
+                "password": "123456",
+                "role": "worker"
+        },
+        {
+                "email": "bryanmenoscal2005@gmail.com",
+                "password": "admiN123",
+                "role": "admin"
+        },
+        {
+                "email": "worker2@uleam.edu.ec",
+                "password": "trabajo2025",
+                "role": "worker"
+        },
+        {
+                "email": "worker3@uleam.edu.ec",
+                "password": "claveSegura1",
+                "role": "worker"
+        }
 ]

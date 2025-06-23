@@ -1,4 +1,4 @@
-import User from "../models/user";
+import {User} from "../interfaces";
 
 export function userAdapter(response: any): User {
     return {

@@ -1,0 +1,31 @@
+<!-- Sección del formulario para agregar edificios -->
+<form method="post" [formGroup]="formGroup()" (ngSubmit)="onSubmit()">
+    <!-- Título del formulario -->
+    <app-section-header [headerTitle]="headerTitle()"></app-section-header>
+    <!-- Contenedor del cuerpo del formulario -->
+    <div class="bg-third-own rounded-b-md p-3">
+        <!-- Elemento para mostrar mensajes de error -->
+        @if (error_message()) {
+        <app-error-message-box [error_message]="error_message()"></app-error-message-box>
+        }
+
+        <!-- Campo: ID del edificio -->
+        <div>
+            @for (field of inputFields(); track $index) {
+            <div class="mb-5 text-left relative">
+                <app-form-input [field]="field"></app-form-input>
+            </div>
+
+            }
+
+
+            <!-- Botón para enviar el formulario y agregar el edificio -->
+            <div class="flex gap-4">
+                <app-button type="submit" [btnLabel]="btnSubmitLabel()"></app-button>
+                @if (isEditing()) {
+                <app-button type="button" (click)="onCancelEdit()" [btnLabel]="'Cancelar'"></app-button>
+                }
+            </div>
+        </div>
+    </div>
+</form>

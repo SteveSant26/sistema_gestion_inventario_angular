@@ -1,36 +1,35 @@
-const dashboardRoutesConfig = {
+export const dashboardRoutesConfig = {
     base: {
-        path: "",
-        url: "/",
+        path: 'dashboard',
+        url: '/dashboard',
         label: "Inicio",
     },
     children: {
         // Subruta para administrar ubicaciones
         locations: {
             path: "locations",
-            url: "/locations",
+            url: "/dashboard/locations",
             label: "Administrar ubicaciones",
         },
         // Subruta para administrar categorías
         categories: {
             path: "categories",
-            url: "/categories",
+            url: "/dashboard/categories",
             label: "Administrar categorías",
         },
         // Subruta para administrar activos
         inventory_assets: {
             path: "inventory_assets",
-            url: "/inventory_assets",
+            url: "/dashboard/inventory_assets",
             label: "Administrar activos",
         },
         // Subruta para administrar usuarios
         users: {
             path: "users",
-            url: "/users",
+            url: "/dashboard/users",
             label: "Administrar usuarios",
         },
 
     }
 }
 
-export default dashboardRoutesConfig;

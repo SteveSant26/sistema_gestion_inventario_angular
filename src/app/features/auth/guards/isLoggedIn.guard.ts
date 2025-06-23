@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { Auth } from '../services/auth';
-import dashboardRoutesConfig from '../../dashboard/config/routes-config';
+import {dashboardRoutesConfig} from '../../dashboard/config';
 
 
 

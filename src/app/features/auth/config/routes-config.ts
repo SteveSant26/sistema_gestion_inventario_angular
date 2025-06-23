@@ -1,4 +1,4 @@
-const authRoutesConfig = {
+export const authRoutesConfig = {
     // Ruta para la página de inicio de sesión
     login: {
         path: "login", // Fragmento de URL que identifica la ruta
@@ -7,4 +7,3 @@ const authRoutesConfig = {
     },
 }
 
-export default authRoutesConfig;

@@ -1,26 +1,38 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import authRoutesConfig from '@features/auth/config/routes-config';
-import { Auth } from '@features/auth/services/auth';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+
+import { authRoutesConfig } from '@features/auth/config/';
+import { Auth } from '@features/auth/services';
 
 @Component({
   selector: 'app-auth-button',
   imports: [RouterLink],
-  templateUrl: './auth-button.html'
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+      <div id="auth-actions" class="flex items-center gap-4 text-xl ">
+        @if (isLogged()){
+            <button class="bg-transparent border-none text-white p-5 cursor-pointer hover:underline" (click)="logOut()">Log out</button>
+        }
+        @else {
+        <a [routerLink]="authRoutesConfig.login.url" class="text-white px-5 py-5 hover:underline">Log in</a>
+        }
+    </div>`,
+
 })
 export class AuthButton {
 
   readonly authRoutesConfig = authRoutesConfig;
 
   private authService = inject(Auth);
+  private router = inject(Router);
 
   get isLogged() {
     return this.authService.isAuthenticated();
   }
 
-  logOut(){
+  logOut() {
     this.authService.logout();
-    console.log('Log out');
+    this.router.navigate([this.authRoutesConfig.login.url]);
   }
 
 }

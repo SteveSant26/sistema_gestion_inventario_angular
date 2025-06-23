@@ -1,0 +1,42 @@
+<div class="w-full">
+    <app-section-header [headerTitle]="headerTitle()"></app-section-header>
+
+    <div class="bg-third-own rounded-b-md p-3">
+        <!-- Mostrar error si hay uno -->
+        @if (error_message()) {
+        <app-error-message-box [error_message]="error_message()"></app-error-message-box>
+        }
+
+        <!-- Mostrar lista si hay elementos -->
+
+        @for (item of items(); track $index) {
+        <div
+            class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 mb-5 p-4 rounded shadow bg-white-own hover:bg-background-own">
+
+            <!-- Contenido -->
+            <div class="flex-1 w-full xl:w-2/3">
+                @for (field of formInputFields(); track field.name) {
+                <div class="mb-2">
+                    <span class="font-semibold">{{ field.label }}:</span>
+                    <span class="ml-1 text-gray-700">{{ item[field.name] }}</span>
+                </div>
+                }
+            </div>
+
+            <!-- Botones -->
+            <div class="w-full xl:w-1/3 flex xl:justify-end">
+                <app-actions-button (onclickEventEdit)="emitEditEvent(item)"
+                    (onclickEventDelete)="emitDeleteEvent(item)"></app-actions-button>
+            </div>
+
+        </div>
+        }
+
+
+
+        <!-- Si no hay elementos -->
+        @empty {
+        <app-error-message-box error_message="No hay elementos para mostrar"></app-error-message-box>
+        }
+    </div>
+</div>

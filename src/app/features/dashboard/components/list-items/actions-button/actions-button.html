@@ -1,0 +1,18 @@
+<div class="flex flex-col md:flex-row gap-4 justify-end">
+    <mat-icon (click)="sendOnClickEventEdit()"
+        class="cursor-pointer transition-colors duration-200 mat-icons hover:scale-115">
+        edit
+    </mat-icon>
+
+    <mat-icon (click)="sendOnclickEventDelete()"
+        class="cursor-pointer transition-colors duration-200 mat-icons hover:scale-115">
+        delete
+    </mat-icon>
+</div>
+
+
+<style>
+    .mat-icons:hover {
+        color: var(--color-secondary-btn-own);
+    }
+</style>

@@ -1,4 +1,4 @@
-import User from "../models/user";
+import {User} from "../interfaces";
 import { userAdapter } from "./user.adapter";
 
 export function usersAdapter(response: any): User[] {

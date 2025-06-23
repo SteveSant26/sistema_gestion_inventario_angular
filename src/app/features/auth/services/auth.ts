@@ -1,8 +1,8 @@
 import { Injectable, Signal, signal, computed, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Data } from '@shared/services/data';
-import User from '../models/user';
-import RolesEnum from '../config/roles-enum';
+import { User } from '../interfaces';
+import { RolesEnum } from '../config';
 import { usersAdapter } from '../adapters/users.adapter';
 
 const LOCAL_STORAGE_USER_KEY = 'user';

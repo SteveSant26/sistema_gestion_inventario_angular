@@ -1,45 +1,28 @@
-<div class="w-full max-w-[500px] mx-auto my-[5vh] p-8 bg-white shadow-md rounded-xl font-[Segoe_UI] bg-third-color">
+<div class="w-full max-w-[500px] mx-auto my-[5vh] p-8 bg-white shadow-xl rounded-xl bg-third-color-own">
     <!-- Encabezado con logo -->
     <div class="text-center font-bold w-full p-2">
         <img src="img/logo_uleam_full_color.png" alt="Logo Uleam" class="w-[80%] mx-auto">
     </div>
 
     <!-- Formulario de login -->
-    <form method="post" [formGroup]="formGroup()" class="p-2" (ngSubmit)="OnSubmit()">
+    <form method="post" [formGroup]="formGroup()" class="p-2" (ngSubmit)="onSubmit()">
         <!-- Mensaje de error -->
         @if (error_message()) {
-        <p class="bg-red-background-own text-black rounded-lg m-4 p-4 text-[0.95rem] break-words max-w-full sm:text-[0.85rem] sm:m-3 sm:p-3"
-            id="error-message">
-            {{ error_message() }}
-        </p>
+        <app-error-message-box [error_message]="error_message()"></app-error-message-box>
         }
 
         <div class="w-full ">
             @for (field of inputFields(); track $index) {
             <div class="mb-5 text-left relative">
-                <input [formControlName]="field.name"
-                    [type]="field.type === 'password' && showPassword ? 'text' : field.type"
-                    [placeholder]="field.placeholder" [autocomplete]="field.autocomplete" [required]="field.required"
-                    class="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-primary-btn-own placeholder-gray-own" />
-
-                @if (field.type === 'password') {
-                <button type="button" (click)="togglePasswordVisibility()"
-                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                    <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
-                </button>
-                }
-                <small class="text-secondary-btn-own" style="font-size: 14px;">
-                    {{ getErrorMessage(field) }}
-                </small>
+                <app-form-input [field]="field"></app-form-input>
             </div>
-
             }
         </div>
 
-
         <!-- Botón de envío -->
         <div class="text-left">
-            <app-button (onclickEvent)="OnSubmit()" [btnLabel]="btnSubmitLabel()"></app-button>
+            <app-button [btnLabel]="btnSubmitLabel()"></app-button>
+
         </div>
     </form>
 </div>

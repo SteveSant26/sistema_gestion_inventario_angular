@@ -7,7 +7,7 @@ import { Footer } from "@shared/layouts/footer/footer";
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer],
   template: `
-      <div class="relative bg-primary-color">
+      <div class="relative bg-primary-color overflow-x-hidden">
 
   <app-header></app-header>
     <main class="flex flex-grow min-h-screen flex-col bg-background-own" >
