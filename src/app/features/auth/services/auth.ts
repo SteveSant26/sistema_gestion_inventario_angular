@@ -1,7 +1,7 @@
 import { Injectable, Signal, signal, computed, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Data } from '@shared/services/data';
-import { User } from '../interfaces';
+import { IUser } from '../interfaces';
 import { RolesEnum } from '../config';
 import { usersAdapter } from '../adapters/users.adapter';
 
@@ -12,7 +12,7 @@ const LOCAL_STORAGE_USER_KEY = 'user';
 })
 export class Auth {
   // Signals
-  private userSignal = signal<User | null>(this.getStoredUser());
+  private userSignal = signal<IUser | null>(this.getStoredUser());
   private isAuthenticatedSignal = computed(() => !!this.userSignal());
 
   private dataService = inject(Data);
@@ -24,11 +24,11 @@ export class Auth {
   /**
    * Inicia sesión validando las credenciales con los usuarios del JSON local.
    */
-  login(email: string, password: string): Observable<User> {
+  login(email: string, password: string): Observable<IUser> {
     const usersJsonPath = 'json/users.json';
 
-    return this.dataService.getLocalJson<User[]>(usersJsonPath, usersAdapter).pipe(
-      map((users: User[]) => {
+    return this.dataService.getLocalJson<IUser[]>(usersJsonPath, usersAdapter).pipe(
+      map((users: IUser[]) => {
         const user = users.find((u) => u.email === email && u.password === password);
 
         if (!user) {
@@ -57,7 +57,7 @@ export class Auth {
   /**
    * Devuelve el usuario autenticado actual.
    */
-  getUser(): User | null {
+  getUser(): IUser | null {
     return this.userSignal();
   }
 
@@ -85,7 +85,7 @@ export class Auth {
   /**
    * Lee el usuario almacenado en localStorage (si existe).
    */
-  private getStoredUser(): User | null {
+  private getStoredUser(): IUser | null {
     const userData = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
     try {
       return userData ? JSON.parse(userData) : null;

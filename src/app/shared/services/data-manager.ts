@@ -1,6 +1,4 @@
-
-
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { StorageKeys } from '@shared/config';
 import { Data } from './data';
 
@@ -8,44 +6,54 @@ import { Data } from './data';
     providedIn: 'root'
 })
 export class BaseStorageService<T> {
-    protected data: T[] = [];
-    private dataService = inject(Data);
+    private readonly dataSignal = signal<T[]>(this.loadFromStorage());
+    private readonly dataService = inject(Data);
 
-    private isEditing = signal(false);
-    private itemToEdit = signal<T | null>(null);
+    private readonly isEditing = signal(false);
+    private readonly itemToEdit = signal<T | null>(null);
+
+    readonly count = computed(() => this.dataSignal().length);
 
     constructor(protected storageKey: StorageKeys) {
-        this.data = this.loadFromStorage();
+        this.setAll(this.loadFromStorage())
     }
 
-    protected loadFromStorage(): T[] {
+
+
+    private loadFromStorage(): T[] {
         const raw = localStorage.getItem(this.storageKey);
         return raw ? JSON.parse(raw) : [];
     }
 
     protected saveToStorage(): void {
-        localStorage.setItem(this.storageKey, JSON.stringify(this.data));
+        localStorage.setItem(this.storageKey, JSON.stringify(this.dataSignal()));
+    }
+
+    getDataSignal() {
+        return this.dataSignal.asReadonly();
     }
 
     getAll(): T[] {
-        return [...this.data];
+        return this.getDataSignal()();
     }
 
     setAll(items: T[]): void {
-        this.data = [...items];
+        this.dataSignal.set([...items]);
         this.saveToStorage();
     }
 
     add(item: T): void {
-
-        this.data.unshift(item);
+        this.dataSignal.update(data => [item, ...data]);
         this.saveToStorage();
     }
 
     deleteById(id: string): boolean {
-        const index = this.data.findIndex((item: any) => item.id === id);
+        const oldData = this.dataSignal();
+        const index = oldData.findIndex((item: any) => item.id === id);
         if (index !== -1) {
-            this.data.splice(index, 1);
+            const newData = [...oldData];
+            newData.splice(index, 1);
+            this.dataSignal.set(newData);
             this.saveToStorage();
             return true;
         }
@@ -53,17 +61,19 @@ export class BaseStorageService<T> {
     }
 
     findById(id: string): T | undefined {
-        return this.data.find((item: any) => item.id === id);
+        return this.dataSignal().find((item: any) => item.id === id);
     }
 
     findIndex(id: string): number {
-        return this.data.findIndex((item: any) => item.id === id);
+        return this.dataSignal().findIndex((item: any) => item.id === id);
     }
 
     updateById(id: string, updated: T): boolean {
         const index = this.findIndex(id);
         if (index !== -1) {
-            this.data[index] = { ...updated };
+            const newData = [...this.dataSignal()];
+            newData[index] = { ...updated };
+            this.dataSignal.set(newData);
             this.saveToStorage();
             return true;
         }
@@ -71,25 +81,21 @@ export class BaseStorageService<T> {
     }
 
     existsById(id: number): boolean {
-        return this.data.some((item: any) => item.id === id);
-    }
-
-    existsByName(name: string): boolean {
-        return this.data.some((item: any) => item.name === name);
+        return this.dataSignal().some((item: any) => item.id === id);
     }
 
     getCount(): number {
-        return this.data.length;
+        return this.count();
     }
 
     clear(): void {
-        this.data = [];
+        this.dataSignal.set([]);
         this.saveToStorage();
     }
+
     startEdit(item: T) {
         this.itemToEdit.set(item);
         this.isEditing.set(true);
-        console.log('edit started');
     }
 
     cancelEdit() {
@@ -104,9 +110,11 @@ export class BaseStorageService<T> {
     getItemToEdit(): T | null {
         return this.itemToEdit();
     }
+
     loadJson(path: string): void {
         this.dataService.getLocalJson(path).subscribe((json) => {
             this.setAll(json as T[]);
+            this.saveToStorage()
         });
     }
 }

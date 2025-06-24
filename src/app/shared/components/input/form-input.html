@@ -1,12 +1,28 @@
 @let field_input = field();
 
 <div class="relative">
+    <label [for]="field_input.name" class="block text-sm font-medium text-gray-700 mb-1">
+        {{ field_input.label }}
+        @if (field_input.required) {
+        <span class="text-red-500">*</span>
+        }
+    </label>
     @if (field_input.type === 'textarea') {
     <textarea [formControl]="field_input.control" [placeholder]="field_input.placeholder"
         [autocomplete]="field_input.autocomplete" [required]="field_input.required"
         class="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-primary-btn-own placeholder-gray-own resize-none">
     </textarea>
-    } @else {
+    }
+    @else if (field_input.type === 'select') {
+    <select [formControl]="field_input.control"
+        class="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-primary-btn-own placeholder-gray-own">
+        <option value="" disabled selected hidden>{{ field_input.placeholder }}</option>
+        @for (option of field_input.options; track option.value) {
+        <option [value]="option.value">{{ option.label }}</option>
+        }
+    </select>
+    }
+    @else {
     <input [formControl]="field_input.control"
         [type]="field_input.type === 'password' && showPassword ? 'text' : field_input.type"
         [placeholder]="field_input.placeholder" [autocomplete]="field_input.autocomplete"

@@ -10,6 +10,7 @@ import { Auth } from '@features/auth/services';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
       <div id="auth-actions" class="flex items-center gap-4 text-xl ">
+        <span class="text-white">{{ userEmail ? userEmail : 'Guest' }}</span>
         @if (isLogged()){
             <button class="bg-transparent border-none text-white p-5 cursor-pointer hover:underline" (click)="logOut()">Log out</button>
         }
@@ -28,6 +29,10 @@ export class AuthButton {
 
   get isLogged() {
     return this.authService.isAuthenticated();
+  }
+
+  get userEmail() {
+    return this.authService.getUser()?.email || '';
   }
 
   logOut() {

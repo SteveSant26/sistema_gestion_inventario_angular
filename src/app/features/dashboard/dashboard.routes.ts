@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {dashboardRoutesConfig} from './config';
+import { dashboardRoutesConfig } from './config';
 import { DashboardLayout } from './dashboard-layout';
 import { isNotLoggedGuard } from '../auth/guards';
 
@@ -14,7 +14,7 @@ export const dashboardRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: dashboardRoutesConfig.children.locations.path, // ejemplo: 'locations'
+        redirectTo: dashboardRoutesConfig.children.locations.path,
       },
       {
         path: dashboardRoutesConfig.children.locations.path,

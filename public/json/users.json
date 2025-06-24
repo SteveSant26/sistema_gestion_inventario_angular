@@ -1,25 +1,30 @@
 [
         {
+                "name": "Admin ULEAM",
                 "email": "admin@uleam.edu.ec",
                 "password": "123456",
                 "role": "admin"
         },
         {
+                "name": "Worker 1",
                 "email": "worker1@uleam.edu.ec",
                 "password": "123456",
                 "role": "worker"
         },
         {
+                "name": "Bryan Menoscal",
                 "email": "bryanmenoscal2005@gmail.com",
                 "password": "admiN123",
                 "role": "admin"
         },
         {
+                "name": "Worker 2",
                 "email": "worker2@uleam.edu.ec",
                 "password": "trabajo2025",
                 "role": "worker"
         },
         {
+                "name": "Worker 3",
                 "email": "worker3@uleam.edu.ec",
                 "password": "claveSegura1",
                 "role": "worker"

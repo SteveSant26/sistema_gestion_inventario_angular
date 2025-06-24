@@ -1,9 +1,9 @@
-import {User} from "../interfaces";
+import {IUser} from "../interfaces";
 
-export function userAdapter(response: any): User {
+export function userAdapter(response: any): IUser {
     return {
+        name: response.name,
         email: response.email,
-        name: response?.name,
         password: response.password,
         role: response.role,
     };

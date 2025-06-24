@@ -1,1 +1,17 @@
-<p>inventory-asssets works!</p>
+<div class="flex flex-col xl:flex-row gap-4 w-full">
+    <!-- Formulario: 1/3 -->
+    <div class="w-full xl:w-1/3">
+        <app-form [formGroup]="inventoryAssetsForm" [inputFields]="inventoryAssetsFormInputFields"
+            headerTitle="Administrar activos de inventario" [btnSubmitLabel]="btnSubmitLabel"
+            (formSubmit)="addInventoryAsset()" [error_message]="formErrorMessage()" [isEditing]="isEditing"
+            (cancelEdit)="cancelEdit()"></app-form>
+    </div>
+
+    <!-- Contenido adicional: 2/3 -->
+    <div class="w-full xl:w-2/3">
+        <!-- Aquí puedes incluir una tabla, tarjetas, lista, etc. -->
+        <app-list-items headerTitle="Lista de activos de inventario" [items]="inventoryAssets"
+            [formInputFields]="inventoryAssetsFormInputFields" [error_message]="listErrorMessage()"
+            (editEvent)="editInventoryAsset($event)" (deleteEvent)="removeInventoryAsset($event)"></app-list-items>
+    </div>
+</div>

@@ -5,7 +5,7 @@ import { IInputField } from '@shared/types';
 import { ListItems } from "@features/dashboard/components/list-items/list-items";
 import { ICategory } from '@features/dashboard/interfaces';
 import { Category } from '@features/dashboard/services';
-import { getCategoryFormFields } from '@features/dashboard/utils';
+import { getCategoryFormFields } from '@features/dashboard/pages/categories/utils';
 
 @Component({
   selector: 'app-categories',
@@ -26,6 +26,8 @@ export class Categories {
 
   ngOnInit() {
     this.initCategoriesForm();
+    // this.categoryService.loadJson('/json/categories.json')
+
   }
 
 
@@ -62,6 +64,8 @@ export class Categories {
     if (this.categoryService.isEditingNow()) {
       this.categoryService.updateById(this.categoryService.getItemToEdit()?.id!, category);
       this.categoryService.cancelEdit();
+      this.categoriesForm.reset();
+      this.categoriesForm.markAsPristine();
       alert('Categoria actualizada');
     }
     else {
@@ -93,6 +97,7 @@ export class Categories {
   cancelEdit() {
     this.categoryService.cancelEdit();
     this.formErrorMessage.set('');
+    this.categoriesForm.reset();
   }
 
   get isEditing() {

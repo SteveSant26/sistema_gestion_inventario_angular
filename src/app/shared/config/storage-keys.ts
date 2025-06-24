@@ -1,6 +1,6 @@
 export enum StorageKeys  {
-    BUILDINGS= "buildings",
-    PROPERTIES= "properties",
-    COURSES= "courses",
+    LOCATIONS= "locations",
+    INVENTORY_ASSETS= "inventory-assets",
+    USERS= "users",
     CATEGORIES= "categories"
 };
