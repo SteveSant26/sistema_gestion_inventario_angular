@@ -6,6 +6,7 @@ import { ListItems } from "@features/dashboard/components/list-items/list-items"
 import { ICategory } from '@features/dashboard/interfaces';
 import { Category } from '@features/dashboard/services';
 import { getCategoryFormFields } from '@features/dashboard/pages/categories/utils';
+import { Auth } from '@features/auth/services';
 
 @Component({
   selector: 'app-categories',
@@ -23,6 +24,7 @@ export class Categories {
 
   private readonly fb = inject(FormBuilder);
   private readonly categoryService = inject(Category);
+  private authService = inject(Auth);
 
   ngOnInit() {
     this.initCategoriesForm();
@@ -108,4 +110,7 @@ export class Categories {
     return this.categoryService.getAll();
   }
 
+    get isAdmin() {
+    return this.authService.isAdmin();
+  }
 }

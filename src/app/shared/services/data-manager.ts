@@ -1,4 +1,4 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
+import { Injectable, Signal, signal, computed, inject } from '@angular/core';
 import { StorageKeys } from '@shared/config';
 import { Data } from './data';
 
@@ -6,30 +6,33 @@ import { Data } from './data';
     providedIn: 'root'
 })
 export class BaseStorageService<T> {
-    private readonly dataSignal = signal<T[]>(this.loadFromStorage());
-    private readonly dataService = inject(Data);
-
+    private readonly dataSignal = signal<T[]>([]);
     private readonly isEditing = signal(false);
     private readonly itemToEdit = signal<T | null>(null);
 
     readonly count = computed(() => this.dataSignal().length);
 
-    constructor(protected storageKey: StorageKeys) {
-        this.setAll(this.loadFromStorage())
+    protected dataService = inject(Data);
+
+    constructor(
+        protected storageKey: StorageKeys,
+    ) {
+        const storedData = this.loadFromStorage();
+        this.dataSignal.set(storedData);
     }
 
-
-
-    private loadFromStorage(): T[] {
+    // Storage
+    loadFromStorage(): T[] {
         const raw = localStorage.getItem(this.storageKey);
         return raw ? JSON.parse(raw) : [];
     }
 
-    protected saveToStorage(): void {
+    saveToStorage(): void {
         localStorage.setItem(this.storageKey, JSON.stringify(this.dataSignal()));
     }
 
-    getDataSignal() {
+    // CRUD básico
+    getDataSignal(): Signal<T[]> {
         return this.dataSignal.asReadonly();
     }
 
@@ -48,11 +51,22 @@ export class BaseStorageService<T> {
     }
 
     deleteById(id: string): boolean {
-        const oldData = this.dataSignal();
-        const index = oldData.findIndex((item: any) => item.id === id);
+        const index = this.dataSignal().findIndex((item: any) => item.id === id);
         if (index !== -1) {
-            const newData = [...oldData];
+            const newData = [...this.dataSignal()];
             newData.splice(index, 1);
+            this.dataSignal.set(newData);
+            this.saveToStorage();
+            return true;
+        }
+        return false;
+    }
+
+    updateById(id: string, updated: T): boolean {
+        const index = this.dataSignal().findIndex((item: any) => item.id === id);
+        if (index !== -1) {
+            const newData = [...this.dataSignal()];
+            newData[index] = { ...updated };
             this.dataSignal.set(newData);
             this.saveToStorage();
             return true;
@@ -64,28 +78,8 @@ export class BaseStorageService<T> {
         return this.dataSignal().find((item: any) => item.id === id);
     }
 
-    findIndex(id: string): number {
-        return this.dataSignal().findIndex((item: any) => item.id === id);
-    }
-
-    updateById(id: string, updated: T): boolean {
-        const index = this.findIndex(id);
-        if (index !== -1) {
-            const newData = [...this.dataSignal()];
-            newData[index] = { ...updated };
-            this.dataSignal.set(newData);
-            this.saveToStorage();
-            return true;
-        }
-        return false;
-    }
-
-    existsById(id: number): boolean {
+    existsById(id: string): boolean {
         return this.dataSignal().some((item: any) => item.id === id);
-    }
-
-    getCount(): number {
-        return this.count();
     }
 
     clear(): void {
@@ -93,12 +87,13 @@ export class BaseStorageService<T> {
         this.saveToStorage();
     }
 
-    startEdit(item: T) {
+    // Edición
+    startEdit(item: T): void {
         this.itemToEdit.set(item);
         this.isEditing.set(true);
     }
 
-    cancelEdit() {
+    cancelEdit(): void {
         this.itemToEdit.set(null);
         this.isEditing.set(false);
     }
@@ -111,10 +106,10 @@ export class BaseStorageService<T> {
         return this.itemToEdit();
     }
 
+    // Carga desde archivo
     loadJson(path: string): void {
         this.dataService.getLocalJson(path).subscribe((json) => {
             this.setAll(json as T[]);
-            this.saveToStorage()
         });
     }
 }

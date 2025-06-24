@@ -7,6 +7,7 @@ import { ListItems } from "@features/dashboard/components/list-items/list-items"
 import { ILocation } from '@features/dashboard/interfaces';
 import { Location } from '@features/dashboard/services';
 import { getLocationFormFields } from '@features/dashboard/pages/locations/utils';
+import { Auth } from '@features/auth/services';
 
 @Component({
   selector: 'app-locations',
@@ -24,6 +25,8 @@ export class Locations {
 
   private readonly fb = inject(FormBuilder);
   private readonly locationService = inject(Location);
+    private authService = inject(Auth);
+  
 
   ngOnInit() {
     this.initLocationsForm();
@@ -108,5 +111,8 @@ export class Locations {
     return this.locationService.getAll();
   }
 
+  get isAdmin() {
+    return this.authService.isAdmin();
+  }
 
 }

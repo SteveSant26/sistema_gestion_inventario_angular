@@ -24,9 +24,9 @@ export class User extends BaseStorageService<IUser> {
   }
 
   updateByEmail(email: string, updatedUser: IUser): boolean {
-    const index = this.getDataSignal()().findIndex((user: IUser) => user.email === email);
+    const index = this.getAll().findIndex((user: IUser) => user.email === email);
     if (index !== -1) {
-      this.getDataSignal()()[index] = updatedUser;
+      this.getAll()[index] = updatedUser;
       this.saveToStorage();
       return true;
     }
@@ -34,7 +34,7 @@ export class User extends BaseStorageService<IUser> {
   }
 
   existsByEmail(email: string): boolean {
-    return this.getDataSignal()().some((user: IUser) => user.email === email);
+    return this.getAll().some((user: IUser) => user.email === email);
   }
 
 }

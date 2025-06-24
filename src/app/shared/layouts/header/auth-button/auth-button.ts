@@ -10,12 +10,12 @@ import { Auth } from '@features/auth/services';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
       <div id="auth-actions" class="flex items-center gap-4 text-xl ">
-        <span class="text-white">{{ userEmail ? userEmail : 'Guest' }}</span>
         @if (isLogged()){
-            <button class="bg-transparent border-none text-white p-5 cursor-pointer hover:underline" (click)="logOut()">Log out</button>
+          <span class="text-white text-sm lg:text-xl">{{ userEmail ? userEmail : 'Guest' }}</span>
+            <button class="bg-transparent border-none text-white p-5 cursor-pointer hover:underline text-sm lg:text-xl text-wrap" (click)="logOut()">Log out</button>
         }
         @else {
-        <a [routerLink]="authRoutesConfig.login.url" class="text-white px-5 py-5 hover:underline">Log in</a>
+        <a [routerLink]="authRoutesConfig.login.url" class="text-white px-5 py-5 hover:underline text-sm lg:text-xl text-wrap">Log in</a>
         }
     </div>`,
 

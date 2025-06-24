@@ -7,6 +7,7 @@ import { ListItems } from "@features/dashboard/components/list-items/list-items"
 import { getUserFormFields } from '@features/dashboard/pages/users/utils';
 import { User } from '@features/dashboard/services/users';
 import { IUser } from '@features/auth/interfaces';
+import { Auth } from '@features/auth/services';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class Users {
 
   private readonly fb = inject(FormBuilder);
   private readonly userService = inject(User);
+
 
 
   ngOnInit() {
@@ -96,7 +98,7 @@ export class Users {
 
     console.log('Editing user:', item);
     this.usersForm.patchValue(item);
-    
+
     this.userService.startEdit(item);
     this.formErrorMessage.set('');
   }

@@ -8,6 +8,7 @@ import { getInventoryAssetsFormFields } from '@features/dashboard/pages/inventor
 import { InventoryAsset } from '@features/dashboard/services/inventory-asset';
 import { IInventoryAsset } from '@features/dashboard/interfaces';
 import { Category, User, Location } from '@features/dashboard/services';
+import { Auth } from '@features/auth/services';
 
 @Component({
   selector: 'app-inventory-assets',
@@ -29,6 +30,7 @@ export class InventoryAssets {
   private userService = inject(User);
   private categoryService = inject(Category);
   private locationsService = inject(Location);
+  private authService = inject(Auth);
 
   ngOnInit() {
     this.initInventoryAssetsForm();
@@ -119,5 +121,7 @@ export class InventoryAssets {
     return this.inventoryAssetService.getAll();
   }
 
-
+  get isAdmin() {
+    return this.authService.isAdmin();
+  }
 }

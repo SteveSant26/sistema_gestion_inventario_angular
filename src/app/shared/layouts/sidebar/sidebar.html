@@ -1,7 +1,8 @@
 <div class="relative">
   <!-- Tabs superiores (solo visible en móviles) -->
   <div class="w-full shadow-md sm:flex md:hidden flex flex-row">
-    @for (route of dashboardChildRoutes; track $index) {
+    @for (route of dashboardRoutes; track $index) {
+      
     <a [routerLink]="route.url" class="tab-item flex-1 px-2 py-3 text-center text-sm font-medium cursor-pointer
            text-gray-own transition-all whitespace-nowrap overflow-hidden text-ellipsis
            hover:bg-highlight-own hover:text-white-own animate-slide-in" routerLinkActive="active">
@@ -16,12 +17,12 @@
     class="sticky top-0 bottom-0 hidden w-[300px] flex-col bg-secondary-own shadow-lg transition-transform duration-300 md:flex">
     <!-- Encabezado -->
     <div class="p-5 border-b border-white/10">
-      <h2 class="text-2xl font-semibold text-black font-">Panel Admin</h2>
+      <h2 class="text-2xl font-semibold text-black font-">Panel {{role|titlecase}}</h2>
     </div>
 
     <!-- Enlaces -->
     <div class="flex-1 overflow-y-auto py-5">
-      @for (route of dashboardChildRoutes; track $index) {
+      @for (route of dashboardRoutes; track $index) {
       <a [routerLink]="route.url" class="menu-item relative block w-full px-5 py-3 text-left text-base
          text-gray-own transition-all duration-300 ease-in-out bg-transparent cursor-pointer
           animate-slide-in hover:bg-highlight-own hover:text-white-own hover:pl-7 " routerLinkActive="active">

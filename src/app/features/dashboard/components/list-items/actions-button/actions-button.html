@@ -1,3 +1,5 @@
+@if (isAdmin){
+
 <div class="flex flex-col md:flex-row gap-4 justify-end">
     <mat-icon (click)="sendOnClickEventEdit()"
         class="cursor-pointer transition-colors duration-200 mat-icons hover:scale-115">
@@ -10,6 +12,7 @@
     </mat-icon>
 </div>
 
+}
 
 <style>
     .mat-icons:hover {

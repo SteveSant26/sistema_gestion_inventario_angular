@@ -1,96 +1,67 @@
 import { Injectable, Signal, signal, computed, inject } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError, of } from 'rxjs';
 import { Data } from '@shared/services/data';
 import { IUser } from '../interfaces';
 import { RolesEnum } from '../config';
 import { usersAdapter } from '../adapters/users.adapter';
+import { User } from '@features/dashboard/services';
 
 const LOCAL_STORAGE_USER_KEY = 'user';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class Auth {
-  // Signals
+  private userServices = inject(User);
+
   private userSignal = signal<IUser | null>(this.getStoredUser());
   private isAuthenticatedSignal = computed(() => !!this.userSignal());
-
-  private dataService = inject(Data);
 
   constructor() {
     console.log('[Auth] Usuario cargado:', this.userSignal());
   }
 
-  /**
-   * Inicia sesión validando las credenciales con los usuarios del JSON local.
-   */
   login(email: string, password: string): Observable<IUser> {
-    const usersJsonPath = 'json/users.json';
-
-    return this.dataService.getLocalJson<IUser[]>(usersJsonPath, usersAdapter).pipe(
-      map((users: IUser[]) => {
-        const user = users.find((u) => u.email === email && u.password === password);
-
-        if (!user) {
-          throw new Error('Correo o contraseña incorrectos');
-        }
-
+    return of(this.userServices.getAll()).pipe(
+      map(users => {
+        const user = users.find(u => u.email === email && u.password === password);
+        if (!user) throw new Error('Correo o contraseña incorrectos');
         this.userSignal.set(user);
         localStorage.setItem(LOCAL_STORAGE_USER_KEY, JSON.stringify(user));
         return user;
       }),
-      catchError((err) => {
+      catchError(err => {
         const message = err instanceof Error ? err.message : 'Error de autenticación';
         return throwError(() => new Error(message));
       })
     );
   }
 
-  /**
-   * Cierra sesión y limpia los datos del usuario.
-   */
   logout(): void {
     this.userSignal.set(null);
     localStorage.removeItem(LOCAL_STORAGE_USER_KEY);
   }
 
-  /**
-   * Devuelve el usuario autenticado actual.
-   */
   getUser(): IUser | null {
     return this.userSignal();
   }
 
-  /**
-   * Devuelve una Signal booleana que indica si hay sesión activa.
-   */
   isAuthenticated(): Signal<boolean> {
     return this.isAuthenticatedSignal;
   }
 
-  /**
-   * Devuelve el rol del usuario actual o null.
-   */
   getRole(): RolesEnum | null {
     return this.userSignal()?.role ?? null;
   }
 
-  /**
-   * Verifica si el usuario autenticado es administrador.
-   */
   isAdmin(): boolean {
     return this.getRole() === RolesEnum.ADMIN;
   }
 
-  /**
-   * Lee el usuario almacenado en localStorage (si existe).
-   */
   private getStoredUser(): IUser | null {
-    const userData = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
     try {
-      return userData ? JSON.parse(userData) : null;
+      const data = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
+      return data ? JSON.parse(data) : null;
     } catch (e) {
-      console.warn('[Auth] Error al parsear el usuario almacenado', e);
+      console.warn('[Auth] Error al parsear usuario almacenado', e);
       return null;
     }
   }
