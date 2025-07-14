@@ -28,7 +28,7 @@ export class Categories {
 
   ngOnInit() {
     this.initCategoriesForm();
-    // this.categoryService.loadJson('/json/categories.json')
+    this.categoryService.loadJson('/json/categories.json')
 
   }
 

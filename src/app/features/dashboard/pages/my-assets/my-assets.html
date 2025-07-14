@@ -1,0 +1,28 @@
+<section class="p-5 max-w-6xl mx-auto">
+  <app-section-header headerTitle='Lista de mis activos asignados'>
+  </app-section-header>
+
+
+  @if (listErrorMessage()) {
+  <div class="bg-red-background-own border border-red-400 text-red-700 px-4 py-3 rounded mb-5">
+    <p>{{ listErrorMessage() }}</p>
+  </div>
+  }
+
+  @if (myAssets().length === 0) {
+  <div class="text-center py-16 px-5">
+    <div class="space-y-2">
+      <h3 class="text-gray-own text-xl mb-3">No tienes activos asignados</h3>
+      <p class="text-gray-500">Actualmente no tienes ningún activo bajo tu responsabilidad.</p>
+    </div>
+  </div>
+  } @else {
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+    @for (asset of myAssets(); track asset.id) {
+    <app-asset-card [asset]="asset" [categoryName]="getCategoryName(asset.categoryId)"
+      [locationName]="getLocationName(asset.locationId)">
+    </app-asset-card>
+    }
+  </div>
+  }
+</section>

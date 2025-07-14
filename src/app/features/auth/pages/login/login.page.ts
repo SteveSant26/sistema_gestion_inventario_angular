@@ -6,6 +6,7 @@ import { authRoutesConfig } from '@features/auth/config';
 import { Auth } from '@features/auth/services';
 import { Router } from '@angular/router';
 import { dashboardRoutesConfig } from '@features/dashboard/config';
+import { User } from '@features/dashboard/services';
 
 @Component({
   selector: 'app-login-page',
@@ -31,10 +32,14 @@ export class LoginPage {
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private authSevice = inject(Auth);
+  private authService = inject(Auth);
+  private readonly userService = inject(User);
+  
 
   ngOnInit() {
     this.initLoginForm();
+    this.userService.loadJson('/json/users.json')
+
   }
   private initLoginForm() {
     this.loginForm = this.fb.group({
@@ -74,7 +79,7 @@ export class LoginPage {
     }
     const { email, password } = this.loginForm.value;
 
-    this.authSevice.login(email, password).subscribe({
+    this.authService.login(email, password).subscribe({
       next: (data) => {
         this.errorMessage.set('');
         this.router.navigate([this.dashboardRoutesConfig.base.url]);

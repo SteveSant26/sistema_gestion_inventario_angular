@@ -34,7 +34,7 @@ export class InventoryAssets {
 
   ngOnInit() {
     this.initInventoryAssetsForm();
-    // this.inventoryAssetService.loadJson('/json/inventory-assets.json')
+    this.inventoryAssetService.loadJson('/json/inventory-assets.json')
   }
 
 
@@ -59,7 +59,7 @@ export class InventoryAssets {
   }
 
   get btnSubmitLabel() {
-    return this.inventoryAssetService.isEditingNow() ? 'Actualizar usuario' : 'Agregar usuario';
+    return this.inventoryAssetService.isEditingNow() ? 'Actualizar activo' : 'Agregar activo';
   }
 
 
@@ -78,15 +78,15 @@ export class InventoryAssets {
       this.inventoryAssetService.cancelEdit();
       this.inventoryAssetsForm.reset();
       this.inventoryAssetsForm.markAsPristine();
-      alert('Usuario actualizado');
+      alert('Activo actualizado');
     }
     else {
       if (this.inventoryAssetService.updateById(inventory_asset.id, inventory_asset)) {
-        this.formErrorMessage.set('Ya existe un usuario con ese email');
+        this.formErrorMessage.set('Ya existe un activo con ese id');
         return;
       }
       this.inventoryAssetService.add(inventory_asset);
-      alert('Usuario agregado');
+      alert('Activo agregado');
     }
 
 
@@ -96,7 +96,7 @@ export class InventoryAssets {
 
   removeInventoryAsset(item: IInventoryAsset) {
     this.inventoryAssetService.deleteById(item.id);
-    alert('Usuario eliminado');
+    alert('Activo eliminado');
   }
 
   editInventoryAsset(item: IInventoryAsset) {

@@ -32,7 +32,6 @@ export class Users {
 
   ngOnInit() {
     this.initUsersForm();
-    // this.userService.loadJson('/json/users.json')
   }
 
 

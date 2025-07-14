@@ -1,7 +1,7 @@
 <div class="relative">
   <!-- Tabs superiores (solo visible en móviles) -->
   <div class="w-full shadow-md sm:flex md:hidden flex flex-row">
-    @for (route of dashboardRoutes; track $index) {
+    @for (route of dashboardRoutesByRole; track $index) {
       
     <a [routerLink]="route.url" class="tab-item flex-1 px-2 py-3 text-center text-sm font-medium cursor-pointer
            text-gray-own transition-all whitespace-nowrap overflow-hidden text-ellipsis
@@ -22,7 +22,7 @@
 
     <!-- Enlaces -->
     <div class="flex-1 overflow-y-auto py-5">
-      @for (route of dashboardRoutes; track $index) {
+      @for (route of dashboardRoutesByRole; track $index) {
       <a [routerLink]="route.url" class="menu-item relative block w-full px-5 py-3 text-left text-base
          text-gray-own transition-all duration-300 ease-in-out bg-transparent cursor-pointer
           animate-slide-in hover:bg-highlight-own hover:text-white-own hover:pl-7 " routerLinkActive="active">

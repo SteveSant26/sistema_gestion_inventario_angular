@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { dashboardRoutesConfig } from './config';
 import { DashboardLayout } from './dashboard-layout';
 import { isNotLoggedGuard } from '../auth/guards';
+import { dashboardRedirectGuard } from './guards';
 
 export const dashboardRoutes: Routes = [
   {
@@ -14,7 +15,8 @@ export const dashboardRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: dashboardRoutesConfig.children.locations.path,
+        canActivate: [dashboardRedirectGuard],
+        children: [],
       },
       {
         path: dashboardRoutesConfig.children.locations.path,
@@ -32,6 +34,10 @@ export const dashboardRoutes: Routes = [
       {
         path: dashboardRoutesConfig.children.users.path,
         loadComponent: () => import('./pages/users/users').then(m => m.Users),
+      },
+      {
+        path: dashboardRoutesConfig.children.my_assets.path,
+        loadComponent: () => import('@features/dashboard/pages/my-assets/my-assets').then(m => m.MyAssets),
       },
     ],
   },

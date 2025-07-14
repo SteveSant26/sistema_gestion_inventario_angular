@@ -3,30 +3,49 @@
                 "name": "Admin ULEAM",
                 "email": "admin@uleam.edu.ec",
                 "password": "123456",
-                "role": "admin"
+                "role": "administrador"
         },
         {
-                "name": "Worker 1",
-                "email": "worker1@uleam.edu.ec",
+                "name": "Auditor 1",
+                "email": "Auditor1@uleam.edu.ec",
                 "password": "123456",
-                "role": "worker"
+                "role": "auditor"
         },
         {
                 "name": "Bryan Menoscal",
                 "email": "bryanmenoscal2005@gmail.com",
                 "password": "admiN123",
-                "role": "admin"
+                "role": "administrador"
+        },
+        {
+                "name": "Auditor 2",
+                "email": "auditor2@uleam.edu.ec",
+                "password": "trabajo2025",
+                "role": "auditor"
+        },
+        {
+                "name": "Auditor 3",
+                "email": "auditor3@uleam.edu.ec",
+                "password": "claveSegura1",
+                "role": "auditor"
+        },
+        {
+                "name": "Worker 1",
+                "email": "worker1@uleam.edu.ec",
+                "password": "workerpass1",
+                "role": "trabajador"
         },
         {
                 "name": "Worker 2",
                 "email": "worker2@uleam.edu.ec",
-                "password": "trabajo2025",
-                "role": "worker"
+                "password": "workerpass2",
+                "role": "trabajador"
         },
         {
                 "name": "Worker 3",
                 "email": "worker3@uleam.edu.ec",
-                "password": "claveSegura1",
-                "role": "worker"
+                "password": "workerpass3",
+                "role": "trabajador"
         }
+
 ]

@@ -1,0 +1,38 @@
+<div
+  class="bg-white-own border border-secondary-own rounded-lg p-5 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-primary-own text-xl font-semibold leading-tight m-0">{{ asset().name }}</h3>
+    <span class="px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide "
+      [ngClass]="getStatusClass(asset().status)">
+      {{ asset().status }}
+    </span>
+  </div>
+
+  <div>
+    @if (asset().description) {
+    <p class="text-gray-own mb-4 italic">{{ asset().description }}</p>
+    }
+
+    <div class="space-y-2">
+      <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
+        <label class="font-medium text-primary-own">Categoría:</label>
+        <span class="text-primary-own text-right">{{ categoryName() }}</span>
+      </div>
+
+      <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
+        <label class="font-medium text-primary-own">Ubicación:</label>
+        <span class="text-primary-own text-right">{{ locationName() }}</span>
+      </div>
+
+      <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
+        <label class="font-medium text-primary-own">Cantidad:</label>
+        <span class="text-primary-own text-right">{{ asset().quantity }}</span>
+      </div>
+
+      <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
+        <label class="font-medium text-primary-own">Fecha de llegada:</label>
+        <span class="text-primary-own text-right">{{ formatDate(asset().arrivalDate) }}</span>
+      </div>
+    </div>
+  </div>
+</div>

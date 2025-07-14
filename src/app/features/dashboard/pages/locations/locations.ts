@@ -30,7 +30,7 @@ export class Locations {
 
   ngOnInit() {
     this.initLocationsForm();
-    // this.locationService.loadJson('/json/locations.json')
+    this.locationService.loadJson('/json/locations.json')
   }
 
 

@@ -3,7 +3,6 @@ import { Observable, catchError, map, throwError, of } from 'rxjs';
 import { Data } from '@shared/services/data';
 import { IUser } from '../interfaces';
 import { RolesEnum } from '../config';
-import { usersAdapter } from '../adapters/users.adapter';
 import { User } from '@features/dashboard/services';
 
 const LOCAL_STORAGE_USER_KEY = 'user';
@@ -54,6 +53,10 @@ export class Auth {
 
   isAdmin(): boolean {
     return this.getRole() === RolesEnum.ADMIN;
+  }
+
+  getUserEmail(): string | null {
+    return this.userSignal()?.email ?? null;
   }
 
   private getStoredUser(): IUser | null {

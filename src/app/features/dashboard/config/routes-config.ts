@@ -29,6 +29,12 @@ export const dashboardRoutesConfig = {
             url: "/dashboard/users",
             label: "Administrar usuarios",
         },
+        // Subruta para ver activos asignados (trabajadores)
+        my_assets: {
+            path: "my_assets",
+            url: "/dashboard/my_assets",
+            label: "Mis activos asignados",
+        },
 
     }
 }

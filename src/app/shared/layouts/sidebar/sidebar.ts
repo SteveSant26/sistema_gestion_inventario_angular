@@ -25,7 +25,6 @@ export class Sidebar {
   dashboardChildRoutes = Object.values(this.dashboardRoutesConfig.children);
 
 
-
   goTo(path: string) {
     this.router.navigateByUrl(path);
   }
@@ -38,12 +37,29 @@ export class Sidebar {
     return this.authService.getRole() || '';
   }
 
-  get dashboardRoutes(): { url: string; label: string }[] {
+  get dashboardRoutesByRole(): { url: string; label: string }[] {
     return this.dashboardChildRoutes
       .filter(route => {
+        // Solo admins pueden ver usuarios
         if (route.path === 'users' && this.role !== RolesEnum.ADMIN) {
           return false;
         }
+        
+        // Solo trabajadores pueden ver sus activos asignados
+        if (route.path === 'my_assets' && this.role !== RolesEnum.WORKER) {
+          return false;
+        }
+        
+        // Los trabajadores no pueden ver la administración general de activos
+        if (route.path === 'inventory_assets' && this.role === RolesEnum.WORKER) {
+          return false;
+        }
+        
+        // Los trabajadores no pueden administrar ubicaciones ni categorías
+        if ((route.path === 'locations' || route.path === 'categories') && this.role === RolesEnum.WORKER) {
+          return false;
+        }
+        
         return true;
       })
       .map(route => ({
