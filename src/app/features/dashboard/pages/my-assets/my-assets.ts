@@ -44,19 +44,7 @@ export class MyAssets {
   // Obtener ubicaciones para mostrar nombres en lugar de IDs
   readonly locations = computed(() => this.locationService.getAll());
 
-  ngOnInit() {
-    // Cargar datos desde JSON si es necesario
-    this.loadData();
-  }
 
-  private loadData() {
-    try {
-      // Los servicios ya deberían tener los datos cargados
-      // Si no, se pueden cargar aquí
-    } catch (error) {
-      this.listErrorMessage.set('Error al cargar los activos asignados');
-    }
-  }
 
   // Método para obtener el nombre de la categoría
   getCategoryName(categoryId: any): string {

@@ -15,22 +15,22 @@
 
     <div class="space-y-2">
       <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
-        <label class="font-medium text-primary-own">Categoría:</label>
+        <label class="font-medium text-primary-own" for="categoryNameSpan">Categoría:</label>
         <span class="text-primary-own text-right">{{ categoryName() }}</span>
       </div>
 
       <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
-        <label class="font-medium text-primary-own">Ubicación:</label>
+        <label class="font-medium text-primary-own" for="locationNameSpan">Ubicación:</label>
         <span class="text-primary-own text-right">{{ locationName() }}</span>
       </div>
 
       <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
-        <label class="font-medium text-primary-own">Cantidad:</label>
+        <label class="font-medium text-primary-own" for="quantitySpan">Cantidad:</label>
         <span class="text-primary-own text-right">{{ asset().quantity }}</span>
       </div>
 
       <div class="flex justify-between items-center py-2 border-b border-third-own last:border-b-0">
-        <label class="font-medium text-primary-own">Fecha de llegada:</label>
+        <label class="font-medium text-primary-own" for="arrivalDateSpan">Fecha de llegada:</label>
         <span class="text-primary-own text-right">{{ formatDate(asset().arrivalDate) }}</span>
       </div>
     </div>

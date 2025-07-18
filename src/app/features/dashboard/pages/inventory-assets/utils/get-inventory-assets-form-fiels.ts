@@ -24,6 +24,7 @@ export function getInventoryAssetsFormFields(form: FormGroup, categoryService: C
             type: 'text',
             placeholder: 'ID del activo',
             required: true,
+            maxLength: 20, // Límite máximo de 20 caracteres para ID
             control: form.get('id') as FormControl,
         },
         {
@@ -40,6 +41,7 @@ export function getInventoryAssetsFormFields(form: FormGroup, categoryService: C
             type: 'textarea',
             placeholder: 'Descripción del activo',
             required: false,
+            maxLength: 500, // Límite máximo de 500 caracteres para descripción
             control: form.get('description') as FormControl,
         },
         {
@@ -101,6 +103,7 @@ export function getInventoryAssetsFormFields(form: FormGroup, categoryService: C
             type: 'number',
             placeholder: 'Cantidad del activo',
             required: true,
+            maxLength: 10, // Límite máximo de 10 dígitos para cantidad
             control: form.get('quantity') as FormControl,
         }
     ];

@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { Component,ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { Form } from "@features/dashboard/components/form/form";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IInputField } from '@shared/types';
@@ -27,10 +26,10 @@ export class InventoryAssets {
 
   private readonly fb = inject(FormBuilder);
   private readonly inventoryAssetService = inject(InventoryAsset);
-  private userService = inject(User);
-  private categoryService = inject(Category);
-  private locationsService = inject(Location);
-  private authService = inject(Auth);
+  private readonly userService = inject(User);
+  private readonly categoryService = inject(Category);
+  private readonly locationsService = inject(Location);
+  private readonly authService = inject(Auth);
 
   ngOnInit() {
     this.initInventoryAssetsForm();

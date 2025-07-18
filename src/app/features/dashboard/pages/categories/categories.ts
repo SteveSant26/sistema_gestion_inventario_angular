@@ -24,7 +24,7 @@ export class Categories {
 
   private readonly fb = inject(FormBuilder);
   private readonly categoryService = inject(Category);
-  private authService = inject(Auth);
+  private readonly authService = inject(Auth);
 
   ngOnInit() {
     this.initCategoriesForm();
@@ -53,9 +53,7 @@ export class Categories {
 
 
   addCategory() {
-    console.log(this.categoriesForm.valid);
     if (this.categoriesForm.invalid) {
-      console.log('invalid');
       this.categoriesForm.markAllAsTouched();
       this.formErrorMessage.set('Complete los campos requeridos');
       return;
@@ -110,7 +108,7 @@ export class Categories {
     return this.categoryService.getAll();
   }
 
-    get isAdmin() {
+  get isAdmin() {
     return this.authService.isAdmin();
   }
 }

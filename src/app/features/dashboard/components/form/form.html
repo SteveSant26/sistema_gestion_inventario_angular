@@ -23,7 +23,8 @@
             <div class="flex gap-4">
                 <app-button type="submit" [btnLabel]="btnSubmitLabel()"></app-button>
                 @if (isEditing()) {
-                <app-button type="button" (click)="onCancelEdit()" [btnLabel]="'Cancelar'"></app-button>
+                <app-button type="button" (click)="onCancelEdit()" (keydown)="onCancelEdit()"
+                    [btnLabel]="'Cancelar'"></app-button>
                 }
             </div>
         </div>

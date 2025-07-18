@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, inject, signal, Component } from '@angular/core';
 import { Form } from "@features/dashboard/components/form/form";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IInputField } from '@shared/types';
@@ -7,7 +6,6 @@ import { ListItems } from "@features/dashboard/components/list-items/list-items"
 import { getUserFormFields } from '@features/dashboard/pages/users/utils';
 import { User } from '@features/dashboard/services/users';
 import { IUser } from '@features/auth/interfaces';
-import { Auth } from '@features/auth/services';
 
 
 @Component({
@@ -65,8 +63,6 @@ export class Users {
     const user = this.usersForm.value;
 
     if (this.userService.isEditingNow()) {
-      console.log('editing user');
-      console.log(this.userService.getItemToEdit());
       this.userService.updateByEmail(this.userService.getItemToEdit()?.email!, user);
 
       this.userService.cancelEdit();
@@ -95,7 +91,6 @@ export class Users {
 
   editUser(item: IUser) {
 
-    console.log('Editing user:', item);
     this.usersForm.patchValue(item);
 
     this.userService.startEdit(item);

@@ -10,6 +10,7 @@
     @if (field_input.type === 'textarea') {
     <textarea [formControl]="field_input.control" [placeholder]="field_input.placeholder"
         [autocomplete]="field_input.autocomplete" [required]="field_input.required"
+        [maxlength]="field_input.maxLength || null"
         class="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-primary-btn-own placeholder-gray-own resize-none">
     </textarea>
     }
@@ -26,7 +27,7 @@
     <input [formControl]="field_input.control"
         [type]="field_input.type === 'password' && showPassword ? 'text' : field_input.type"
         [placeholder]="field_input.placeholder" [autocomplete]="field_input.autocomplete"
-        [required]="field_input.required"
+        [required]="field_input.required" [maxlength]="field_input.maxLength || null"
         class="w-full p-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:border-primary-btn-own placeholder-gray-own" />
 
     @if (field_input.type === 'password') {
@@ -37,7 +38,19 @@
     }
     }
 
+    <!-- Mostrar contador de caracteres si hay maxLength definido -->
+    @if (field_input.maxLength) {
+    <div class="flex justify-between items-center mt-1">
+        <small class="text-secondary-btn-own text-sm">
+            {{ getErrorMessage(field_input) }}
+        </small>
+        <small class="text-gray-500 text-sm">
+            {{ (field_input.control.value?.length || 0) }}/{{ field_input.maxLength }}
+        </small>
+    </div>
+    } @else {
     <small class="text-secondary-btn-own text-sm">
         {{ getErrorMessage(field_input) }}
     </small>
+    }
 </div>

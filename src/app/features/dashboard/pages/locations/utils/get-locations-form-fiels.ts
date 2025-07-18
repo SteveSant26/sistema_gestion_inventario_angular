@@ -33,6 +33,7 @@ export function getLocationFormFields(form: FormGroup): IInputField[] {
             type: 'number',
             placeholder: 'Número de pisos en la ubicación',
             required: true,
+            maxLength: 2,
             control: form.get('floors_num') as FormControl,
         },
         {
@@ -41,6 +42,7 @@ export function getLocationFormFields(form: FormGroup): IInputField[] {
             type: 'number',
             placeholder: 'Capacidad de la ubicación',
             required: true,
+            maxLength: 4,
             control: form.get('capacity') as FormControl,
         }
     ];

@@ -9,14 +9,10 @@ const LOCAL_STORAGE_USER_KEY = 'user';
 
 @Injectable({ providedIn: 'root' })
 export class Auth {
-  private userServices = inject(User);
+  private readonly userServices = inject(User);
+  private readonly userSignal = signal<IUser | null>(this.getStoredUser());
+  private readonly isAuthenticatedSignal = computed(() => !!this.userSignal());
 
-  private userSignal = signal<IUser | null>(this.getStoredUser());
-  private isAuthenticatedSignal = computed(() => !!this.userSignal());
-
-  constructor() {
-    console.log('[Auth] Usuario cargado:', this.userSignal());
-  }
 
   login(email: string, password: string): Observable<IUser> {
     return of(this.userServices.getAll()).pipe(

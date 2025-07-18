@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { Component,ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { Form } from "@features/dashboard/components/form/form";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IInputField } from '@shared/types';
@@ -25,8 +24,7 @@ export class Locations {
 
   private readonly fb = inject(FormBuilder);
   private readonly locationService = inject(Location);
-    private authService = inject(Auth);
-  
+  private readonly authService = inject(Auth);
 
   ngOnInit() {
     this.initLocationsForm();
@@ -56,9 +54,7 @@ export class Locations {
 
 
   addLocation() {
-    console.log(this.locationsForm.valid);
     if (this.locationsForm.invalid) {
-      console.log('invalid');
       this.locationsForm.markAllAsTouched();
       this.formErrorMessage.set('Complete los campos requeridos');
       return;
@@ -107,7 +103,6 @@ export class Locations {
   }
 
   get locations() {
-    console.log(this.locationService.getAll())
     return this.locationService.getAll();
   }
 
